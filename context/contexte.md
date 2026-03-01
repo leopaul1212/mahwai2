@@ -1,3 +1,14 @@
+[FILE] context/contexte.md — Contexte operationnel consolide (pour IA/dev)
+Workflow: Lu au demarrage d'une nouvelle session pour comprendre l'etat du projet, les invariants, les sources de verite et la prochaine etape utile.
+Inputs: `context/global.md`, `context/avancement.md`, `context/fonctionnalites.md`, `context/stacktechnique.md`, `context/tacheaccomplie.md`, decisions produit.
+Outputs: snapshot courant + invariants + historique des decisions + prochaines actions/test.
+Decision tree:
+- Input (besoin d'avancer)
+  - if priorites definies dans `context/avancement.md` -> suivre l'"Ordre de dev recommande" et les tests associes
+  - else -> relire `context/global.md` + `context/fonctionnalites.md` pour reposer une roadmap
+- -> appliquer la prochaine feature prioritaire en respectant stack/invariants
+Structure: Etat actuel, Sources de verite, Invariants/contraintes, Historique des changements
+
 # Contexte projet - SaaS Aide Devoirs (MVP)
 
 ## Etat actuel (snapshot)
@@ -6,6 +17,7 @@
 - Utilisateurs : `ENFANT` (parcours guide + soumission) et `PARENT` (lecture score/temps/progression + decision).
 - Flux metier MVP cible : saisie devoir (mock/manual) -> `IA_TUTEUR` (plan d'action) -> soumission enfant (texte + photo) -> `IA_CORRECTEUR` (score + feedback) -> decision parent.
 - Priorites produit : auth + roles d'abord, puis pipeline IA, puis stockage des soumissions/scores, puis interfaces minimales, puis connecteurs (apres MVP).
+- Etat d'avancement : projet au stade documentation/cadrage MVP, backlog present dans `context/avancement.md`.
 
 ## Sources de verite (docs internes)
 
@@ -23,6 +35,12 @@
 - Stockage photo (MVP) : local dans `/public/uploads` (evolution cloud plus tard).
 
 ## Historique des changements (decisions et ajouts majeurs)
+
+## [2026-03-01] Prochaine etape recommandee - Implementer Auth + roles (MVP)
+- Contexte : la priorite active est "auth avant tout le reste" pour securiser routes/APIs des le debut.
+- Resume : demarrer l'implementation par Auth.js (NextAuth) + roles `PARENT | ENFANT`, avec protection role-based sur pages et endpoints.
+- Impact : toutes les futures features (pipeline IA, uploads, devoirs, dashboards) devront s'appuyer sur la session et les controles de role cote serveur.
+- A tester : login, gestion session, protection routes/pages, verification role serveur (tests aligns avec `context/avancement.md`).
 
 ## [2026-03-01] Plan de developpement MVP - SaaS Aide Devoirs
 - Contexte : besoin de structurer le MVP autour du pipeline IA et des connecteurs externes.
